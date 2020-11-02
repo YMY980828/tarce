@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="frame" ></dbname>
+
+    <version value="2" ></version>
+
+    <list>
+        <mapping class="com.example.gw.enterprise.common.db.OtherConfig"></mapping>
+    </list>
+
+    <!--
+        这个是定义数据userinf.db存储在哪里，有两个参数"internal"和"external"可
+        以选择。"internal"表示数据库存储在数据库文件夹的内部存储中，其他人不能访
+        问。"external"表示存储在外部的存储中，所有人可以访问。默认情况下
+        是"internal"。例：
+        <storage value="external"></storage>
+    -->
+
+</litepal>

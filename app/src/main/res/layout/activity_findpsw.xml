@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/HLinearLayout">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_shuxing" />
+
+        <TextView
+            style="@style/MyTextViewStyle"
+            android:text="选择类型" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="#ffff0000" />
+
+        <TextView
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0" />
+
+        <com.example.gw.enterprise.common.component.NiceSpinner
+            android:id="@+id/spType"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:drawablePadding="10dp"
+            android:text="请选择"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <View
+        style="@style/rowDivider"
+        android:paddingLeft="@dimen/usual_padding"
+        android:paddingRight="@dimen/usual_padding" />
+
+    <LinearLayout style="@style/HLinearLayout">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_zhutiname" />
+
+        <TextView
+            style="@style/MyTextViewStyle"
+            android:text="主体名称" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="#ffff0000" />
+
+        <TextView
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0" />
+
+        <EditText
+            android:id="@+id/etOrgName"
+            style="@style/MyEditTextStyle"
+            android:layout_marginRight="10dp"
+            android:hint="请填写主体名称" />
+    </LinearLayout>
+
+    <View
+        style="@style/rowDivider"
+        android:paddingLeft="@dimen/usual_padding"
+        android:paddingRight="@dimen/usual_padding" />
+
+    <LinearLayout style="@style/HLinearLayout">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_name" />
+
+        <TextView
+            style="@style/MyTextViewStyle"
+            android:text="法人姓名" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="#ffff0000" />
+
+        <TextView
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0" />
+
+        <EditText
+            android:id="@+id/etLegalPersonName"
+            style="@style/MyEditTextStyle"
+            android:layout_marginRight="10dp"
+            android:hint="请填写法人姓名" />
+    </LinearLayout>
+
+    <View
+        style="@style/rowDivider"
+        android:paddingLeft="@dimen/usual_padding"
+        android:paddingRight="@dimen/usual_padding" />
+
+    <LinearLayout style="@style/HLinearLayout">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_phone" />
+
+        <TextView
+            style="@style/MyTextViewStyle"
+            android:text="法人电话" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="#ffff0000" />
+
+        <TextView
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0" />
+
+        <EditText
+            android:id="@+id/etLegalPersonMobile"
+            style="@style/MyEditTextStyle"
+            android:layout_marginRight="10dp"
+            android:hint="请填写法人电话"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <View
+        style="@style/rowDivider"
+        android:paddingLeft="@dimen/usual_padding"
+        android:paddingRight="@dimen/usual_padding" />
+
+    <LinearLayout
+        android:id="@+id/linPsw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout style="@style/HLinearLayout">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_psw" />
+
+            <TextView
+                style="@style/MyTextViewStyle"
+                android:text="新密码" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="#ffff0000" />
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="0.0dip"
+                android:layout_weight="1.0" />
+
+            <EditText
+                android:id="@+id/etPsw"
+                style="@style/MyEditTextStyle"
+                android:inputType="textPassword"
+                android:layout_marginRight="10dp"
+                android:hint="请填写新密码" />
+        </LinearLayout>
+
+        <View
+            style="@style/rowDivider"
+            android:paddingLeft="@dimen/usual_padding"
+            android:paddingRight="@dimen/usual_padding" />
+
+        <LinearLayout style="@style/HLinearLayout">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_psw" />
+
+            <TextView
+                style="@style/MyTextViewStyle"
+                android:text="确认密码" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="#ffff0000" />
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="0.0dip"
+                android:layout_weight="1.0" />
+
+            <EditText
+                android:id="@+id/etPsw2"
+                style="@style/MyEditTextStyle"
+                android:layout_marginRight="10dp"
+                android:inputType="textPassword"
+                android:hint="请再次确认密码" />
+        </LinearLayout>
+
+        <View
+            style="@style/rowDivider"
+            android:paddingLeft="@dimen/usual_padding"
+            android:paddingRight="@dimen/usual_padding" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="30dp"
+        android:background="@color/main_color"
+        android:gravity="center"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+</LinearLayout>

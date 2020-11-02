@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public type="layout" name="public_inputview" id="0x7f0400da" />
+    <public type="layout" name="public_inputview_viewstub_et" id="0x7f0400db" />
+    <public type="layout" name="public_inputview_viewstub_iv" id="0x7f0400dc" />
+    <public type="layout" name="public_inputview_viewstub_sp" id="0x7f0400dd" />
+    <public type="layout" name="public_inputview_viewstub_tv" id="0x7f0400de" />
+</resources>
