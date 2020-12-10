@@ -65,6 +65,7 @@ public class Activity_DeviceList2 extends Activity {
             Intent intent = new Intent();
             intent.putExtra("is_connected", ((msg.what==0)?"OK":"NO"));
             intent.putExtra("BTAddress", toothAddress);
+            intent.putExtra("EXTRA_DEVICE_ADDRESS", (String)msg.obj);
             setResult(HPRTPrinterHelper.ACTIVITY_CONNECT_BT, intent);
             finish();
         };
@@ -201,7 +202,7 @@ public class Activity_DeviceList2 extends Activity {
                 }
 
                 //ȡ������mvc��ַ
-                String info = ((TextView) v).getText().toString();
+                final String info = ((TextView) v).getText().toString();
                 toothAddress = info.substring(info.length() - 17);
                 if(!toothAddress.contains(":"))
                 {
@@ -216,6 +217,7 @@ public class Activity_DeviceList2 extends Activity {
                             int portOpen = hprtPrinterHelper.PortOpen("Bluetooth,"+toothAddress);
                             message = new Message();
                             message.what=portOpen;
+                            message.obj=info;
                             handler.sendMessage(message);
                         } catch (Exception e) {
                             // TODO Auto-generated catch block

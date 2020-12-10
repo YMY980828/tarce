@@ -43,6 +43,7 @@ import com.example.gw.enterprise.common.utils.ToastUtil;
 import com.example.gw.enterprise.task.Task_SavePrintRecord;
 import com.example.gw.enterprise.unknow.Activity_DeviceList4;
 import com.example.gw.enterprise.webview.X5WebView;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.zxing.BarcodeFormat;
@@ -102,6 +103,7 @@ public class TBSWebViewActivity extends BaseActivity {
     //传的字段
     private String type, title1, title2, name, user, phone, code, company, qrCode, num, weight, time, address, reverse,productName,productId,traceCode,printKindId,specification,count;
     BluetoothSocket bluetoothSocket=null;
+    private String weightText="",unitId="",orgProductGreedId="";
     @SuppressLint("JavascriptInterface")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +117,8 @@ public class TBSWebViewActivity extends BaseActivity {
          * pda:ver=PDA
          */
 
-       // myWebView.loadUrl(BuildConfig.Main_URL + "?token=" + DBManager.getOtherConfig(FrmConfigKeys.token));
-        myWebView.loadUrl("http://192.168.1.101:9000" + "?token=" + DBManager.getOtherConfig(FrmConfigKeys.token));
+        myWebView.loadUrl(BuildConfig.Main_URL + "?token=" + DBManager.getOtherConfig(FrmConfigKeys.token));
+        //   myWebView.loadUrl("http://192.168.1.116:9001" + "?token=" + DBManager.getOtherConfig(FrmConfigKeys.token));
         myWebView.addJavascriptInterface(new method(), "method");
         myWebView.setWebChromeClient(new WebChromeClient());
         myWebView.setWebViewClient(new WebViewClient() {
@@ -241,30 +243,53 @@ public class TBSWebViewActivity extends BaseActivity {
 
         @JavascriptInterface
         public void print(String json) {
-            JsonObject data = new JsonParser().parse(json).getAsJsonObject();
-            type = data.get("types").getAsString();
-            title1 = data.get("title1").getAsString();
-            title2 = data.get("title2").getAsString();
-            name = data.get("productName").getAsString();
-            user = data.get("person").getAsString();
-            phone = data.get("phone").getAsString();
-            code = data.get("shortCode").getAsString();
-            company = data.get("orgName").getAsString();
-            qrCode = data.get("codeUrl").getAsString();
-            num = data.get("printNum").getAsString();
-            weight = data.get("weightText").getAsString();
-            time = data.get("time").getAsString();
-            address = data.get("place").getAsString();
-            reverse = data.get("reverse").getAsString();
-            //Enable Bluetooth
-            EnableBluetooth();
-            if (!checkClick.isClickEvent()) return;
-            if (HPRTAndroidSDKA300.HPRTPrinterHelper.IsOpened()) {
-                savePrintRecord(1);
+           try {
+               JsonObject data = new JsonParser().parse(json).getAsJsonObject();
+               type = data.get("types").getAsString();
+               JsonElement e = data.get("unitId");
+               if (e!=null){
+                   unitId = e.getAsString();
+               }
+               JsonElement e1 = data.get("orgProductGreedId");
+               if (e1!=null){
+                   orgProductGreedId =e1.getAsString();
+               }
+               JsonElement e2 = data.get("weight");
+               if (e2!=null){
+                   weightText = e2.getAsString();
+               }
+               title1 = data.get("title1").getAsString();
+               title2 = data.get("title2").getAsString();
+               name = data.get("productName").getAsString();
+               user = data.get("person").getAsString();
+               phone = data.get("phone").getAsString();
+               code = data.get("shortCode").getAsString();
+               company = data.get("orgName").getAsString();
+               qrCode = data.get("codeUrl").getAsString();
+               num = data.get("printNum").getAsString();
+               weight = data.get("weightText").getAsString();
+               time = data.get("time").getAsString();
+               address = data.get("place").getAsString();
+               reverse = data.get("reverse").getAsString();
 
-            } else {
-                connectBT(1);
-            }
+               productName = name;
+               productId = data.get("productId").getAsString();
+               traceCode = data.get("traceCode").getAsString();
+               printKindId = data.get("printKindId").getAsString();
+               specification = data.get("specification").getAsString();
+               count = data.get("count").getAsString();
+               //Enable Bluetooth
+               EnableBluetooth();
+               if (!checkClick.isClickEvent()) return;
+               if (HPRTAndroidSDKA300.HPRTPrinterHelper.IsOpened()) {
+                   savePrintRecord(1);
+               } else {
+                   connectBT(1);
+               }
+           }catch (Exception e){
+               e.printStackTrace();
+           }
+
         }
 
         @JavascriptInterface
@@ -284,6 +309,13 @@ public class TBSWebViewActivity extends BaseActivity {
             time = data.get("time").getAsString();
             address = data.get("place").getAsString();
             reverse = data.get("reverse").getAsString();
+
+            productName = name;
+            productId = data.get("productId").getAsString();
+            traceCode = data.get("traceCode").getAsString();
+            printKindId = data.get("printKindId").getAsString();
+            specification = data.get("specification").getAsString();
+            count = data.get("count").getAsString();
             //Enable Bluetooth
             if (!checkClick.isClickEvent()) return;
             boolean res = isConnectPrinter();
@@ -292,7 +324,8 @@ public class TBSWebViewActivity extends BaseActivity {
                 connectToPrint();
                 return;
             } else {
-                DSPrint();
+                savePrintRecord(5);
+              //  DSPrint();
             }
         }
 
@@ -313,6 +346,13 @@ public class TBSWebViewActivity extends BaseActivity {
             time = data.get("time").getAsString();
             address = data.get("place").getAsString();
             reverse = data.get("reverse").getAsString();
+
+            productName = name;
+            productId = data.get("productId").getAsString();
+            traceCode = data.get("traceCode").getAsString();
+            printKindId = data.get("printKindId").getAsString();
+            specification = data.get("specification").getAsString();
+            count = data.get("count").getAsString();
             //Enable Bluetooth
             EnableBluetooth();
             hprtPrinterHelper = HPRTPrinterHelper.getHPRT(thisCon);
@@ -342,6 +382,13 @@ public class TBSWebViewActivity extends BaseActivity {
             time = data.get("time").getAsString();
             address = data.get("place").getAsString();
             reverse = data.get("reverse").getAsString();
+
+            productName = name;
+            productId = data.get("productId").getAsString();
+            traceCode = data.get("traceCode").getAsString();
+            printKindId = data.get("printKindId").getAsString();
+            specification = data.get("specification").getAsString();
+            count = data.get("count").getAsString();
             //Enable Bluetooth
             if (!checkClick.isClickEvent()) return;
             if (isConnected) {
@@ -678,7 +725,7 @@ public class TBSWebViewActivity extends BaseActivity {
                 if (result == 0) {
                     //连接成功
                     ToastUtil.showShort("连接成功");
-                    HYPrint();
+                    savePrintRecord(1);
                 } else {
                     //连接失败
                     ToastUtil.showShort("连接失败");
@@ -718,7 +765,6 @@ public class TBSWebViewActivity extends BaseActivity {
                         .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
                 String address = sdata.substring(sdata.length() - 17);
                 String name = sdata.substring(0, (sdata.length() - 17));
-                Toast.makeText(TBSWebViewActivity.this,sdata,Toast.LENGTH_SHORT).show();
 
                 if (!isConnected) {
                     if (iPrinter.connect(name, address)) {
@@ -742,6 +788,10 @@ public class TBSWebViewActivity extends BaseActivity {
         }else if (requestCode == REQUEST_CONNECT_DEVICE) {
             // When DeviceListActivity returns with a device to connect
             if (resultCode == RESULT_OK) {
+                String address = data.getStringExtra("device_address");
+                String name = data.getStringExtra("device_name");
+                DBManager.setOtherConfig(FrmConfigKeys.macAddr, address);
+                DBManager.setOtherConfig(FrmConfigKeys.deviceName, name);
                 mSmartPrint.DSLinkBT();
             }
         }
@@ -755,10 +805,12 @@ public class TBSWebViewActivity extends BaseActivity {
         task.printKindId=printKindId;
         task.specification=specification;
         task.count=count;
+        task.weight=weightText;
+        task.orgProductGreedId=orgProductGreedId;
+        task.unitId=unitId;
         task.refreshHandler = new BaseRequestor.RefreshHandler() {
             @Override
             public void refresh(Object obj) {
-               Toast.makeText(TBSWebViewActivity.this,obj+"",Toast.LENGTH_SHORT).show();
                 if (CommnAction.CheckY(obj, getActivity())) {{
                     if (flag==1){
                         HYPrint();
@@ -768,7 +820,8 @@ public class TBSWebViewActivity extends BaseActivity {
                         HDDMPrint();
                     }else if (flag==4){
                         UnKnownPrint(IntentData);
-
+                    }else if (flag==5){
+                        DSPrint();
                     }
 
                 }}
@@ -906,7 +959,7 @@ public class TBSWebViewActivity extends BaseActivity {
                 iPrinter.drawText(x, y + 105, "电话：" + phone, 2, 0, 0, false, false);
             }
             iPrinter.drawText(x, y + 140, "单位：" + company, 2, 0, 0, false, false);
-            iPrinter.drawQrCode(420, y, qrCode, 0, 3, 1);
+            iPrinter.drawQrCode(415, y, qrCode, 0, 3, 1);
             if ("1".equals(reverse)) {
                 iPrinter.print(0, 0);
             } else {
@@ -950,7 +1003,8 @@ public class TBSWebViewActivity extends BaseActivity {
                             btAddress = mSmartPrint.DSGetBTAddress();
                             if (firstConnect) {
                                 firstConnect = false;
-                                DSPrint();
+                                savePrintRecord(5);
+                               // DSPrint();
                             }
                             break;
                         case STATE_CONNECTING:

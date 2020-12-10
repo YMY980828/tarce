@@ -67,6 +67,7 @@ public class Activity_DeviceList extends Activity {
             Intent intent = new Intent();
             intent.putExtra("is_connected", msg.what);
             intent.putExtra("BTAddress", toothAddress);
+            intent.putExtra(EXTRA_DEVICE_ADDRESS, (String)msg.obj);
             setResult(HPRTPrinterHelper.ACTIVITY_CONNECT_BT, intent);
             finish();
         };
@@ -149,6 +150,7 @@ public class Activity_DeviceList extends Activity {
     protected void onDestroy()
     {
         super.onDestroy();
+        unregisterReceiver(mReceiver);
         // 确认是否还需要做扫描
         if (mBtAdapter != null)
             mBtAdapter.cancelDiscovery();
@@ -208,7 +210,7 @@ public class Activity_DeviceList extends Activity {
                 }
 
                 //取得蓝牙mvc地址
-                String info = ((TextView) v).getText().toString();
+                final String info = ((TextView) v).getText().toString();
                 toothAddress = info.substring(info.length() - 17);
                 if(!toothAddress.contains(":"))
                 {
@@ -226,6 +228,7 @@ public class Activity_DeviceList extends Activity {
                             HPRTPrinterHelper.logcat("portOpen:"+portOpen);
                             message = new Message();
                             message.what=portOpen;
+                            message.obj = info;
                             handler.sendMessage(message);
                         } catch (Exception e) {
                             // TODO Auto-generated catch block

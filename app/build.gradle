@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('D:\\android\\shenglongfarm.jks')
+            storePassword '123456'
+            keyAlias 'farming'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
@@ -80,6 +88,22 @@ android {
             buildConfigField "String", "AreaCode", '"61"'
             buildConfigField "String", "BASE_SERVER_URL", '"http://sxaqs.snzfnm.com/s3xtracewebapp/desk/"'
             buildConfigField "String", "Main_URL", '"http://sxaqs.snzfnm.com/mobile/index.html"'
+        }
+        hs{
+            applicationId "com.example.gw.hsfirstversion"
+            versionCode 1
+            versionName "1.0.0"
+            resValue "string", "app_name", "衡水追溯平台"
+            resValue "string", "app_info", "衡水农产品质量监管追溯平台"
+            resValue "string", "app_info2", "版权所有: ©衡水农业农村厅"
+            buildConfigField "String", "Type", '"1"'
+//            buildConfigField "String", "BASE_SERVER_URL", '"http://hszs.snzfnm.com/hebtracewebapp/desk/"'
+            buildConfigField "String", "BASE_SERVER_URL", '"http://192.168.1.111/webapp_war_exploded/desk/"'
+            buildConfigField "String", "Main_URL", '"http://hszs.snzfnm.com/mobile/index.html"'
+            buildConfigField "String", "Type", '"1"'
+            buildConfigField "String", "ClientType", '"1"'
+            buildConfigField "String", "AreaCode", '"1311"'
+
         }
     }
 

@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -404,7 +405,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0: {
-                    System.out.println("-->回到主线程刷新ui任务");
+
                     getUploadToken();
                 }
                 break;
@@ -422,6 +423,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
         task.refreshHandler = new BaseRequestor.RefreshHandler() {
             @Override
             public void refresh(Object obj) {
+                Log.d("ymy", "1--refresh: "+obj);
                 if (CommnAction.CheckY(obj, getActivity())) {
                     JsonObject jsonObj = new JsonParser().parse(obj.toString()).getAsJsonObject();
                     String token = jsonObj.get("data").getAsString();
@@ -445,6 +447,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
                 // info.error中包含了错误信息，可打印调试
                 // 上传成功后将key值上传到自己的服务器
                 hideLoading();
+                Log.d("ymy", "2--refresh: "+info);
                 if (info.isOK()) {
                     if ("3".equals(orgNature)) {
                         legalPersonIdCardFront = imgUrl + "/" + key;
@@ -479,6 +482,7 @@ public class RegisterActivity extends BaseActivity implements AdapterView.OnItem
         task.refreshHandler = new BaseRequestor.RefreshHandler() {
             @Override
             public void refresh(Object obj) {
+                Log.d("ymy", "3--refresh: "+obj);
                 if (CommnAction.CheckY(obj, getActivity())) {
                     JsonObject jsonObject = new JsonParser().parse(obj.toString()).getAsJsonObject();
                     String data = jsonObject.get("data").getAsString();
